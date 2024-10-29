@@ -21,12 +21,12 @@ export async function generateReport(res: Response) {
 
         // Função para calcular a porcentagem de acerto
         const calculateAccuracy = (initialValue: string, finalValue: string): number => {
-            if (!initialValue || !finalValue) return 0; // Se um dos valores estiver vazio, retorne 0%
+            if (!initialValue || !finalValue) return 0; 
             
             const initialValueLower = initialValue.toLowerCase();
             const finalValueLower = finalValue.toLowerCase();
 
-            // Contar quantos caracteres do valor inicial estão presentes no valor final
+       
             let correctCharacters = 0;
 
             for (let char of initialValueLower) {
@@ -39,11 +39,10 @@ export async function generateReport(res: Response) {
             return (correctCharacters / initialValueLower.length) * 100;
         };
 
-        // Mapeando dados e adicionando sinalização
         const reportData = reports.map(report => {
             const isNull = report.is_null || !report.inital_value || !report.final_value;
             const status = isNull || report.inital_value !== report.final_value ? 'Incorreto' : 'Correto';
-            const accuracyPercentage = calculateAccuracy(report.inital_value, report.final_value); // Porcentagem de acerto
+            const accuracyPercentage = calculateAccuracy(report.inital_value, report.final_value); 
 
             return {
                 'Tipo de Documento': report.type_document,
@@ -54,18 +53,18 @@ export async function generateReport(res: Response) {
                 'Editado': report.edit ? 'Sim' : 'Não',
                 'Permaneceu Vazio': report.is_null ? 'Sim' : 'Não',
                 'Status': status,
-                'Porcentagem de Acerto': accuracyPercentage // Usando valor numérico para o cálculo total
+                'Porcentagem de Acerto': accuracyPercentage 
             };
         });
 
-        // Calculando a porcentagem global de acertos
+
         const totalAccuracyPercentage = reportData.reduce((total, row) => total + row['Porcentagem de Acerto'], 0) / reportData.length;
 
         // Criando uma nova planilha com ExcelJS
         const workbook = new ExcelJS.Workbook();
         const worksheet = workbook.addWorksheet('Relatório de Documentos');
 
-        // Adicionando cabeçalhos
+     
         worksheet.columns = [
             { header: 'Tipo de Documento', key: 'type_document', width: 20 },
             { header: 'Nome do Documento', key: 'name_document', width: 25 },
@@ -75,10 +74,10 @@ export async function generateReport(res: Response) {
             { header: 'Editado', key: 'edit', width: 10 },
             { header: 'Permaneceu Vazio', key: 'is_null', width: 15 },
             { header: 'Status', key: 'status', width: 15 },
-            { header: 'Porcentagem de Acerto', key: 'accuracy_percentage', width: 20 } // Nova coluna para porcentagem de acerto
+            { header: 'Porcentagem de Acerto', key: 'accuracy_percentage', width: 20 } 
         ];
 
-        // Adicionando dados e aplicando cores com base no status
+       
         reportData.forEach(row => {
             const worksheetRow = worksheet.addRow({
                 type_document: row['Tipo de Documento'],
@@ -89,26 +88,25 @@ export async function generateReport(res: Response) {
                 edit: row['Editado'],
                 is_null: row['Permaneceu Vazio'],
                 status: row['Status'],
-                accuracy_percentage: `${row['Porcentagem de Acerto'].toFixed(2)}%` // Formatar com duas casas decimais
+                accuracy_percentage: `${row['Porcentagem de Acerto'].toFixed(2)}%` 
             });
 
-            // Definindo a cor de preenchimento para status 'Correto' e 'Incorreto'
+       
             if (row['Status'] === 'Correto') {
                 worksheetRow.getCell('status').fill = {
                     type: 'pattern',
                     pattern: 'solid',
-                    fgColor: { argb: 'C6EFCE' } // Verde claro
+                    fgColor: { argb: 'C6EFCE' } 
                 };
             } else if (row['Status'] === 'Incorreto') {
                 worksheetRow.getCell('status').fill = {
                     type: 'pattern',
                     pattern: 'solid',
-                    fgColor: { argb: 'FFC7CE' } // Vermelho claro
+                    fgColor: { argb: 'FFC7CE' } 
                 };
             }
         });
 
-        // Adicionando a porcentagem global de acertos no final
         worksheet.addRow({});
         worksheet.addRow({
             type_document: '',
@@ -119,14 +117,14 @@ export async function generateReport(res: Response) {
             edit: '',
             is_null: '',
             status: '',
-            accuracy_percentage: `${totalAccuracyPercentage.toFixed(2)}%` // Formatar com duas casas decimais
+            accuracy_percentage: `${totalAccuracyPercentage.toFixed(2)}%` 
         });
 
         // Configurando o cabeçalho para download
         res.setHeader('Content-Disposition', 'attachment; filename="Relatorio_de_Documentos.xlsx"');
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
-        // Escrevendo o arquivo na resposta
+   
         await workbook.xlsx.write(res);
         console.log('Relatório gerado com sucesso!');
     } catch (error) {
