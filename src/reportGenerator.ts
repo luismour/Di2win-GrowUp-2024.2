@@ -1,8 +1,25 @@
 import { PrismaClient } from '@prisma/client';
 import ExcelJS from 'exceljs';
 import { Response } from 'express';
+import { ChartJSNodeCanvas } from 'chartjs-node-canvas';
+import { Chart, ChartConfiguration, ChartTypeRegistry } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+
 
 const prisma = new PrismaClient();
+const width = 250; 
+const height = 200; 
+const chartJSNodeCanvas = new ChartJSNodeCanvas({ width, height });
+const colors = [
+    'rgba(255, 99, 132, 0.8)',    // Pink
+    'rgba(54, 162, 235, 0.8)',    // Blue
+    'rgba(75, 192, 192, 0.8)',    // Teal
+    'rgba(255, 159, 64, 0.8)',    // Orange
+    'rgba(153, 102, 255, 0.8)',   // Purple
+    'rgba(255, 205, 86, 0.8)',    // Yellow
+    'rgba(201, 203, 207, 0.8)',   // Gray
+    'rgba(66, 133, 244, 0.8)',    // Stronger Blue
+];
 
 export async function generateReport(res: Response) {
     try {
@@ -120,11 +137,138 @@ export async function generateReport(res: Response) {
             accuracy_percentage: `${totalAccuracyPercentage.toFixed(2)}%` 
         });
 
+
+
+        // criando a segunda aba (Dashboard)
+        const dashboardSheet = workbook.addWorksheet('Dashboard');
+        dashboardSheet.addRow(['Dashboard']);
+
+
+
+        //filtragem dos documentos que mais vieram nulos pro gráfico de barras
+        const nullDocuments = reports.filter(report => report.is_null);
+        const documentTypes = nullDocuments.map(report => report.type_document);
+        const documentCounts = documentTypes.reduce((acc, type) => {
+            acc[type] = (acc[type] || 0) + 1;
+            return acc;
+        }, {} as Record<string, number>);
+
+        const chartData = Object.entries(documentCounts).map(([type, count]) => ({
+            type_document: type,
+            count: count,
+        }));
+
+        dashboardSheet.addRow(['Documentos Nulos - Contagem por Tipo']);
+        
+        dashboardSheet.columns = [
+            { header: 'Tipo de Documento', key: 'type_document', width: 20 },
+            { header: 'Quantidade Nula', key: 'count', width: 15 },
+        ];
+
+        chartData.forEach(row => {
+            dashboardSheet.addRow({
+                type_document: row.type_document,
+                count: row.count,
+            });
+        });
+        
+
+        // filtra e conta todos os documentos por tipo para o gráfico pizza
+        const documentTypesTotal = reports.map(report => report.type_document);
+        const documentCountsTotal = documentTypesTotal.reduce((acc, type) => {
+            acc[type] = (acc[type] || 0) + 1;
+            return acc;
+        }, {} as Record<string, number>);
+
+        const processedDocumentData = Object.entries(documentCountsTotal).map(([type, count]) => ({
+            type_document: type,
+            count: count,
+        }));
+
+        dashboardSheet.addRow([]);
+        dashboardSheet.addRow(['Documentos Mais Processados - Contagem por Tipo']);
+
+        dashboardSheet.columns = [
+            { header: 'Tipo de Documento', key: 'type_document', width: 20 },
+            { header: 'Quantidade Processada', key: 'count', width: 20 },
+        ];
+
+        processedDocumentData.forEach(row => {
+            dashboardSheet.addRow({
+                type_document: row.type_document,
+                count: row.count,
+            });
+        });
+                
+
+        // filtra e conta todos os documentos que foram editados (edit = true)
+        const editedDocuments = reports.filter(report => report.edit);
+        const editedDocumentTypes = editedDocuments.map(report => report.type_document);
+        const editedDocumentCounts = editedDocumentTypes.reduce((acc, type) => {
+            acc[type] = (acc[type] || 0) + 1;
+            return acc;
+        }, {} as Record<string, number>);
+
+        const editedDocumentData = Object.entries(editedDocumentCounts).map(([type, count]) => ({
+            type_document: type,
+            count: count,
+        }));
+
+        dashboardSheet.addRow([]);
+        dashboardSheet.addRow(['Documentos Mais Editados - Contagem por Tipo']);
+
+        dashboardSheet.columns = [
+            { header: 'Tipo de Documento', key: 'type_document', width: 20 },
+            { header: 'Quantidade Editada', key: 'count', width: 20 },
+        ];
+
+        editedDocumentData.forEach(row => {
+            dashboardSheet.addRow({
+                type_document: row.type_document,
+                count: row.count,
+            });
+        });
+
+
+
+        // filtra e conta todos os documentos que não foram editados (edit = false)
+        const correctDocuments = reports.filter(report => !report.edit);
+        const correctDocumentTypes = correctDocuments.map(report => report.type_document);
+        const correctDocumentCounts = correctDocumentTypes.reduce((acc, type) => {
+            acc[type] = (acc[type] || 0) + 1;
+            return acc;
+        }, {} as Record<string, number>);
+
+        // transforma os dados em formato de linha para adicionar à aba
+        const correctDocumentData = Object.entries(correctDocumentCounts).map(([type, count]) => ({
+            type_document: type,
+            count: count,
+        }));
+
+        // adiciona uma nova seção na aba Dashboard para documentos com mais acerto (edit = false)
+        dashboardSheet.addRow([]);
+        dashboardSheet.addRow(['Documentos com Mais Acerto (Não Editados) - Contagem por Tipo']);
+
+        dashboardSheet.columns = [
+            { header: 'Tipo de Documento', key: 'type_document', width: 20 },
+            { header: 'Quantidade Não Editada (Acerto)', key: 'count', width: 20 },
+        ];
+
+        // Adiciona as linhas com os dados de correctDocumentData
+        correctDocumentData.forEach(row => {
+            dashboardSheet.addRow({
+                type_document: row.type_document,
+                count: row.count,
+            });
+        });
+
+
+
         // Configurando o cabeçalho para download
         res.setHeader('Content-Disposition', 'attachment; filename="Relatorio_de_Documentos.xlsx"');
         res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 
-   
+
         await workbook.xlsx.write(res);
         console.log('Relatório gerado com sucesso!');
     } catch (error) {
