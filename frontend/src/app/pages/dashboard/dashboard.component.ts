@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { GraficosComponent } from '../../sections/graficos/graficos.component';
-
+//teste
 @Component({
   selector: 'app-dashboard',
   standalone: true,
