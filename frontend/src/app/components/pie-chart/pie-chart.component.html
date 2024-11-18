@@ -1,0 +1,10 @@
+<ng-container *ngIf="isBrowser">
+                <canvas
+                  baseChart
+                  [datasets]="pieChartData.datasets"
+                  [labels]="pieChartLabels"
+                  [options]="pieChartOptions"
+                  [type]="pieChartType">
+                </canvas>
+                
+</ng-container>
