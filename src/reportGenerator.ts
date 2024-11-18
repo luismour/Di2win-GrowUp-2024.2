@@ -28,7 +28,7 @@ export async function generateReport(res: Response) {
         const calculateAccuracy = (initialValue: string, finalValue: string): number => {
             if (!initialValue || !finalValue) return 0;
 
-            const initialValueLower = initialValue.toLowerCase();
+            const initialValueLower = initialValue.toLowerCase(); 
             const finalValueLower = finalValue.toLowerCase();
 
             let correctCharacters = 0;
