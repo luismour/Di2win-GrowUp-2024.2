@@ -1,12 +1,27 @@
 <app-navbar></app-navbar>
 
-<div>
-    <div class="tittle">
-        <h1>Dashboard</h1> 
-        <br>
+<div class="secao">
+  <div class="relatorio-box">
+    <div class="linha">
+      <div class="paginas">
+        <a class="relatorio-link">
+          <div class="relatorio" routerLink="/relatorio">
+            <h2>Relatório</h2>
+          </div>
+        </a>
+        <div class="dashboard" [@fadeInOut]="mostrarConteudo ? 'in' : 'out'">
+          <h2>Dashboard</h2>
+        </div>
+      </div>
+      <div class="btn">
+        <app-btn-download></app-btn-download>
+      </div>
+
     </div>
-    <div class="graficos">
-        <app-graficos></app-graficos>
-    </div>
-    
+
+  </div>
+  <div class="graficos">
+    <app-graficos></app-graficos>
+  </div>
+
 </div>

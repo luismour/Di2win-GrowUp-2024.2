@@ -7,8 +7,6 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
   standalone: true,
   imports: [
     RouterOutlet,
-    DashboardComponent,
-
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

@@ -4,3 +4,20 @@
   margin: 0;
   font-family: Arial, sans-serif;
 }
+
+@import "ag-grid-community/styles//ag-grid.css";
+@import "ag-grid-community/styles//ag-theme-alpine.css";
+
+.ag-theme-alpine .ag-header {
+  background-color: rgba(248, 65, 141, 0.932);
+  color: white;
+}
+.ag-root-wrapper-body.ag-layout-normal.ag-focus-managed {
+  padding: 0 ;
+}
+.ag-header-cell {
+  color: rgb(230, 228, 228) ;
+}
+.ag-icon.ag-icon-menu::before{
+  color: #F1F1F1;
+}

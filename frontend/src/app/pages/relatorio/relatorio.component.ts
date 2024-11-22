@@ -1,21 +1,19 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { GraficosComponent } from '../../sections/graficos/graficos.component';
+import { TableComponent } from '../../components/table/table.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
-import { BtnDownloadComponent } from '../../components/btn-download/btn-download.component';
-//teste
+
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-relatorio',
   standalone: true,
   imports: [
     NavbarComponent,
-    GraficosComponent,
-    RouterLink,
-    BtnDownloadComponent
+    TableComponent,
+    RouterLink
   ],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+  templateUrl: './relatorio.component.html',
+  styleUrl: './relatorio.component.scss',
   animations: [
     trigger('fadeInOut', [
       state('in', style({ opacity: 1 })),
@@ -29,7 +27,7 @@ import { BtnDownloadComponent } from '../../components/btn-download/btn-download
     ])
   ]
 })
-export class DashboardComponent {
+export class RelatorioComponent {
   mostrarConteudo: boolean = true;
 
   toggleConteudo() {

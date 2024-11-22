@@ -1,0 +1,12 @@
+a{
+  text-decoration: none;
+  color: aliceblue;
+  background-color: rgba(248, 65, 141, 0.932);
+  padding: 13px 20px;
+  border-radius: 3px;
+  transition: scale .5s;
+}
+a:hover{
+  background-color: rgba(250, 92, 158, 0.932);
+  scale: 105%;
+}
