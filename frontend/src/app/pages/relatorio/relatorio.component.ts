@@ -1,26 +1,21 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
-import { GraficosComponent } from '../../sections/graficos/graficos.component';
+import { TableComponent } from '../../components/table/table.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { SelectComponent } from '../../components/select/select.component';
 import { BtnDownloadComponent } from '../../components/btn-download/btn-download.component';
-import { MatSelectModule } from '@angular/material/select';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { CommonModule } from '@angular/common';
-import { SelectComponent } from "../../components/select/select.component";
-//teste
+
 @Component({
-  selector: 'app-dashboard',
+  selector: 'app-relatorio',
   standalone: true,
   imports: [
     NavbarComponent,
-    GraficosComponent,
-    RouterLink,
-    BtnDownloadComponent,
-    SelectComponent
-],
-  templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.scss',
+    TableComponent,
+    SelectComponent,
+    BtnDownloadComponent
+  ],
+  templateUrl: './relatorio.component.html',
+  styleUrl: './relatorio.component.scss',
   animations: [
     trigger('fadeInOut', [
       state('in', style({ opacity: 1 })),
@@ -34,13 +29,7 @@ import { SelectComponent } from "../../components/select/select.component";
     ])
   ]
 })
-export class DashboardComponent {
-
-
-  selected: string = '';
-  items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
-
-
+export class RelatorioComponent {
   mostrarConteudo: boolean = true;
 
   toggleConteudo() {

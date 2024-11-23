@@ -1,0 +1,54 @@
+.custom-select {
+  text-transform: capitalize;
+  position: relative;
+  width: 200px;
+  font-size: 28px;
+  background-color: transparent;
+  cursor: pointer;
+}
+.selected-option:hover{
+  color: rgb(230, 11, 120);
+}
+
+.selected-option {
+  padding: 10px;
+  background-color: transparent;
+  color: #333;
+  border-radius: 4px;
+}
+
+.options-list {
+
+  position: absolute;
+  z-index: 100;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(248, 248, 248);
+  border: 1px solid #ccc;
+  list-style: none;
+  display: none; /* Esconde a lista por padrão */
+  border-radius: 4px;
+  font-size: 18px;
+}
+
+.options-list.show {
+  display: block; /* Exibe a lista quando o dropdown está aberto */
+}
+
+.option {
+  padding: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.option:hover {
+  background-color: rgba(248, 65, 141, 0.932);
+  color: #fff;
+}
+.option.active {
+  background-color: rgba(248, 65, 141, 0.932); /* Cor de fundo do item ativo */
+  color: #fff; /* Cor do texto do item ativo */
+}

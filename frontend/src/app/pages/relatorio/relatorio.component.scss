@@ -1,0 +1,26 @@
+.secao{
+  margin: 0 auto;
+  margin-top: 120px; 
+  width: 90%;
+}
+.tabela{
+  margin: 20px auto;
+  width: 90%;
+}
+
+.linha{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  margin: 0 auto;
+ }
+
+
+@media (min-width: 1366px) {
+   
+  .tabela{
+    margin: 40px auto;
+    width: 90%;
+  }
+}
