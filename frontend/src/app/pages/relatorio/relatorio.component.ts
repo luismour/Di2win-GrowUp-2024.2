@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { TableComponent } from '../../components/table/table.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+import { SelectComponent } from '../../components/select/select.component';
+import { BtnDownloadComponent } from '../../components/btn-download/btn-download.component';
 
 @Component({
   selector: 'app-relatorio',
@@ -10,7 +11,8 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   imports: [
     NavbarComponent,
     TableComponent,
-    RouterLink
+    SelectComponent,
+    BtnDownloadComponent
   ],
   templateUrl: './relatorio.component.html',
   styleUrl: './relatorio.component.scss',

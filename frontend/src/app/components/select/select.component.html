@@ -1,0 +1,22 @@
+<!-- <select [(ngModel)]="selectedPage" (change)="navigateToPage()">
+  <option class="option" value="relatorio">Relatorio</option>
+  <option class="option" value="dashboard">Dashboard</option>
+</select> -->
+
+
+<div class="custom-select">
+  <div class="selected-option" (click)="toggleDropdown()">
+    {{ selectedPage || 'Escolha uma opção' }} ▾
+  </div>
+  <ul class="options-list" [class.show]="isDropdownOpen">
+    <li 
+      class="option" 
+      *ngFor="let page of pages" 
+      [class.active]="page === selectedPage" 
+      (click)="selectPage(page)">
+      {{ page }}
+    </li>
+  </ul>
+</div>
+
+

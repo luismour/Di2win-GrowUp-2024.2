@@ -4,6 +4,10 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 import { GraficosComponent } from '../../sections/graficos/graficos.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { BtnDownloadComponent } from '../../components/btn-download/btn-download.component';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
+import { SelectComponent } from "../../components/select/select.component";
 //teste
 @Component({
   selector: 'app-dashboard',
@@ -12,8 +16,9 @@ import { BtnDownloadComponent } from '../../components/btn-download/btn-download
     NavbarComponent,
     GraficosComponent,
     RouterLink,
-    BtnDownloadComponent
-  ],
+    BtnDownloadComponent,
+    SelectComponent
+],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss',
   animations: [
@@ -30,6 +35,12 @@ import { BtnDownloadComponent } from '../../components/btn-download/btn-download
   ]
 })
 export class DashboardComponent {
+
+
+  selected: string = '';
+  items = ['Item 1', 'Item 2', 'Item 3', 'Item 4'];
+
+
   mostrarConteudo: boolean = true;
 
   toggleConteudo() {
