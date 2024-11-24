@@ -1,0 +1,40 @@
+.aside {
+  display: flex;
+  flex-direction: column;
+  height: 95%;
+  color: aliceblue;
+  padding: 20px;
+  justify-content: center;
+  background-image: url("../../../assets/fundoLayout.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: bottom right;
+  border-radius: 25px;
+}
+
+.aside a {
+  text-decoration: none;
+  color: aliceblue;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  border: 1px solid white;
+  margin: 10%;
+  width: 200px;
+}
+
+.aside a:hover{
+  background-color: rgb(158, 12, 85);
+}
+
+.aside h1 {
+  font-size: 6vh;
+  padding-left: 9.5%;
+}
+
+.aside p {
+  font-size: 2.9vh;
+  text-align: left;
+  padding-left: 10%;
+  margin-top: 40px;
+}
