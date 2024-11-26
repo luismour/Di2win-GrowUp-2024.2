@@ -4,6 +4,7 @@ import { TableComponent } from '../../components/table/table.component';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { SelectComponent } from '../../components/select/select.component';
 import { BtnDownloadComponent } from '../../components/btn-download/btn-download.component';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-relatorio',
@@ -12,7 +13,7 @@ import { BtnDownloadComponent } from '../../components/btn-download/btn-download
     NavbarComponent,
     TableComponent,
     SelectComponent,
-    BtnDownloadComponent
+    BtnDownloadComponent,
   ],
   templateUrl: './relatorio.component.html',
   styleUrl: './relatorio.component.scss',

@@ -1,0 +1,182 @@
+.total{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.login{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: -15px;
+}
+.logo h2{
+margin-top: 0;
+text-align: center;
+}
+form {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  margin-top: 4%;
+}
+.botao{
+  width: 50%;
+  background-color: rgb(202, 202, 202);
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
+.voltar{
+  width: 45%;
+  background-color: rgb(24, 24, 24);
+  color: aliceblue;
+  border: none;
+  border-radius: 8px;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  cursor: pointer;
+  text-align: center;
+}
+.botoes{
+  width: 100%;
+  display: flex;
+  gap: 5%;
+}
+input{
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid gray;
+  margin: 10px;
+  font-size: 15px;
+  padding-top: 10px;
+}
+input:focus {
+  outline: none; 
+  border-bottom: 1px solid rgb(5, 5, 5);
+}
+.botton{
+  text-align: center;
+  font-size: 2vh;
+  margin-top: 15px;
+}
+
+a{
+  text-decoration: none;
+  color: rgb(62, 62, 255);
+}
+
+
+
+
+
+
+
+
+.login-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8%;
+  height: 90%;
+  width: 95%;
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.aside{
+  width: 45%;
+  height: 100%;
+}
+.form{
+  height: 100%;
+  width: 40%;
+}
+@media(max-width: 930px){
+  .aside{
+    display: none;
+  }
+  .form{
+    width: 90%;
+  }
+  }
+
+
+
+  .toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* O toggle */
+  .slider {
+    display: inline-block;
+    position: relative;
+    width: 50px;
+    height: 25px;
+  }
+
+  /* Esconde o input */
+  .slider input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  /* Fundo do toggle */
+  .slider span {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: background-color 0.4s;
+    border-radius: 25px;
+  }
+
+  /* Bolinha deslizante */
+  .slider span::before {
+    content: "";
+    position: absolute;
+    height: 18px;
+    width: 18px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: transform 0.4s;
+    border-radius: 50%;
+  }
+
+  /* Quando o input está marcado */
+  .slider input:checked + span {
+    background-color: #eb0483;
+  }
+
+  .slider input:checked + span::before {
+    transform: translateX(25px);
+  }
+
+  /* Estilização do texto e link */
+  .span-terms {
+    font-size: 14px;
+  }
+
+  .link-terms {
+    text-decoration: none;
+    color: #eb0483;
+  }
+
+  .link-terms:hover {
+    text-decoration: underline;
+  }
